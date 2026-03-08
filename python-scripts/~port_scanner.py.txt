@@ -1,0 +1,63 @@
+from libnmap.process import NmapProcess
+from libnmap.parser import NmapParser
+import datetime
+import json
+
+def run_scan(target):
+    print(f"\n[*] Starting scan on {target}...")
+    print(f"[*] Time: {datetime.datetime.now()}\n")
+
+    # Run the same -sV -O scan we did manually
+    nm = NmapProcess(target, options="-sV -O")
+    nm.run()
+
+    # Parse the results
+    parsed = NmapParser.parse(nm.stdout)
+
+    results = {
+        "target": target,
+        "scan_time": str(datetime.datetime.now()),
+        "hosts": []
+    }
+
+    for host in parsed.hosts:
+        host_data = {
+            "ip": host.address,
+            "status": host.status,
+            "os": "Unknown",
+            "open_ports": []
+        }
+
+        # Grab OS detection if available
+        if host.os_match_probabilities():
+            host_data["os"] = host.os_match_probabilities()[0].name
+
+        # Grab open ports and services
+        for service in host.services:
+            if service.state == "open":
+                port_data = {
+                    "port": service.port,
+                    "protocol": service.protocol,
+                    "service": service.service,
+                    "version": service.banner
+                }
+                host_data["open_ports"].append(port_data)
+
+                print(f"  [+] Port {service.port}/{service.protocol} "
+                      f"OPEN — {service.service} {service.banner}")
+
+        results["hosts"].append(host_data)
+
+    # Save results to a JSON report file
+    filename = f"scan_report_{target}_{datetime.date.today()}.json"
+    with open(filename, 'w') as f:
+        json.dump(results, f, indent=4)
+
+    print(f"\n[*] Scan complete!")
+    print(f"[*] Report saved to: {filename}")
+    print(f"[*] Total open ports found: {len(host_data['open_ports'])}")
+
+    return results
+
+# Run the scan
+run_scan("192.168.100.20")
