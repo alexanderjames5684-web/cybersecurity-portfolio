@@ -21,6 +21,13 @@ analysis safely without risk to my real network.
 - Both VMs confirmed communicating via ping test
 - No internet access from either VM — completely air-gapped
 
+## Key Findings
+| Port | Service | Risk Level | Notes |
+|------|---------|------------|-------|
+| 135 | Microsoft RPC | Medium | Standard Windows port |
+| 139 | NetBIOS | Medium | Legacy protocol, monitor closely |
+| 445 | SMB | High | Priority finding — WannaCry vector |
+
 ## Tools Installed
 - Wireshark (coming soon)
 - Nmap (coming soon)
@@ -32,15 +39,22 @@ analysis safely without risk to my real network.
 🔄 Phase 3 — Security tools and monitoring (in progress)
 
 
+# 3/7/26 (Nmap Scan & Firewall Discovery)
 
+While scanning the Windows-Target VM from Kali, I received 
+no response from Nmap. All 1000 ports were showing as 
+filtered rather than open or closed.
 
+A filtered port state means the ports are not actually 
+closed, they are being silently blocked by a firewall. 
+From an attacker's perspective, this makes the machine 
+harder to fingerprint since there is no response to 
+analyze. In a real SOC environment, this result would 
+indicate a firewall is in place and would be documented 
+as a positive security control.
 
-# 3/7/26 (nmap)
-As I was attacking the Windows-Target, I noticed I wasnt getting a response from my nmap. When I tried to perform bash: nmap 192.168.100.20, I was getting nothing in my response. Nmap was telling me all 1000 ports were scanned, but they are all in ignored states. Which meant that what I was dealing with was a filtered port state. This basically just means the ports arent actually closed, they are being blocked by a firewall. This makes it harder for me as an attacker since a machine that returns all filtered ports is harder to fingerprint than one with an open or closed ports. In a real SOC enviorment, if I were to come across this, I would know there is a possible firewall in place somewhere.
-- For testing purposes though, I turned off the firewalls in Windows-Target
-
-
-
+For lab testing purposes, the Windows Defender Firewall 
+was temporarily disabled to allow the scan to complete.
 
 
 # 3/8/26 (Python Script/ JSON report)
@@ -54,10 +68,10 @@ Automates an Nmap -sV -O scan against a target IP and saves
 a structured JSON report of all open ports, services, and
 version information.
 
-### Tools Used
-- Python 3
-- python-libnmap
-- Nmap 7.95
+## Tools Used
+- Nmap 7.95 — port scanning and service detection
+- Python 3 + python-libnmap — scan automation
+- VMware — virtual machine platform
 
 ### Sample Output
 Target: 192.168.100.20 (Windows 10 VM — Lab Environment)
@@ -79,6 +93,12 @@ Scan Date: 2026-03-08
 sudo python3 port_scanner.py
 ```
 
-
+## Lessons Learned
+- A machine returning all filtered ports indicates a firewall
+  is actively dropping probes rather than rejecting them
+- Port 445 (SMB) should always be treated as a high priority
+  finding and investigated immediately in a real environment
+- Documenting findings in structured reports is as important
+  as the technical work itself
 
 
