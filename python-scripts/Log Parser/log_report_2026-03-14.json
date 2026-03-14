@@ -1,0 +1,53 @@
+{
+    "scan_time": "2026-03-14 18:15:33.508918",
+    "log_file": "/home/aj/sample_auth.log",
+    "summary": {
+        "total_lines": 25,
+        "failed_logins": 21,
+        "successful_logins": 4,
+        "total_alerts": 9
+    },
+    "alerts": [
+        "[!] ALERT \u2014 IP 192.168.100.20 had 12 failed logins (possible brute force)",
+        "[!] ALERT \u2014 IP 192.168.100.10 had 9 failed logins (possible brute force)",
+        "[!] ALERT \u2014 User 'admin' had 5 failed login attempts",
+        "[!] ALERT \u2014 User 'root' had 8 failed login attempts",
+        "[!] ALERT \u2014 User 'guest' had 6 failed login attempts",
+        "[!] ALERT \u2014 Sensitive account targeted: 'admin'",
+        "[!] ALERT \u2014 Sensitive account targeted: 'root'",
+        "[!] ALERT \u2014 Sensitive account targeted: 'administrator'",
+        "[!] ALERT \u2014 Sensitive account targeted: 'guest'"
+    ],
+    "failed_by_ip": {
+        "192.168.100.20": 12,
+        "192.168.100.10": 9
+    },
+    "failed_by_user": {
+        "admin": 5,
+        "root": 8,
+        "administrator": 2,
+        "guest": 6
+    },
+    "successful_logins": [
+        {
+            "timestamp": "2026-03-08 08:13:01",
+            "user": "john",
+            "ip": "192.168.100.20"
+        },
+        {
+            "timestamp": "2026-03-08 08:17:45",
+            "user": "sarah",
+            "ip": "192.168.100.20"
+        },
+        {
+            "timestamp": "2026-03-08 08:21:10",
+            "user": "admin",
+            "ip": "192.168.100.20"
+        },
+        {
+            "timestamp": "2026-03-08 08:25:00",
+            "user": "mike",
+            "ip": "192.168.100.20"
+        }
+    ]
+}
