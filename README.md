@@ -102,3 +102,37 @@ sudo python3 port_scanner.py
   as the technical work itself
 
 
+
+## Script 2 — Automated Log Parser
+
+### What it does
+Parses authentication log files to detect suspicious activity
+including brute force attempts, sensitive account targeting,
+and failed login patterns. Outputs a full summary report and
+saves findings to a JSON file.
+
+### Tools Used
+- Python 3
+- re (regex), collections, json, datetime modules
+
+### Key Findings from Sample Log
+| Finding | Details | Risk Level |
+|---------|---------|------------|
+| Brute Force — 192.168.100.20 | 12 failed logins | High |
+| Brute Force — 192.168.100.10 | 9 failed logins | High |
+| Root account targeted | 8 attempts | High |
+| Guest account targeted | 6 attempts | Medium |
+| Admin login after 5 failures | Possible compromise | High |
+
+### Security Notes
+- Any IP with 3+ failed logins triggers an automatic alert
+- Sensitive usernames like root, admin, and guest are flagged
+  regardless of attempt count
+- A successful login following repeated failures is a critical
+  finding indicating possible account compromise
+- In a real SOC environment the offending IPs would be blocked
+  and the admin account investigated immediately
+
+### How to Run
+```bash
+sudo python3 log_parser.py
