@@ -136,7 +136,7 @@ saves findings to a JSON file.
 ### How to Run
 ```bash
 sudo python3 log_parser.py
-
+```
 ## Script 3 — Real-Time Brute Force Detector
 
 ### What it does
