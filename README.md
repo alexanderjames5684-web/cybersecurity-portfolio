@@ -136,3 +136,44 @@ saves findings to a JSON file.
 ### How to Run
 ```bash
 sudo python3 log_parser.py
+
+## Script 3 — Real-Time Brute Force Detector
+
+### What it does
+Monitors authentication logs in real time, triggering
+progressive alerts as failed login attempts accumulate.
+Automatically flags and blocks IPs that exceed configurable
+thresholds within a set time window.
+
+### Tools Used
+- Python 3
+- re, time, json, datetime, collections modules
+
+### How it differs from the Log Parser
+| Feature | Log Parser | Brute Force Detector |
+|---------|-----------|---------------------|
+| Timing | After the fact | Real time |
+| Purpose | Forensic analysis | Active monitoring |
+| Output | Summary report | Live alerts + report |
+| Blocking | No | Yes — flags IPs automatically |
+
+### Key Findings from Sample Log
+| Finding | Details | Risk Level |
+|---------|---------|------------|
+| 192.168.100.20 blocked | 5 failed attempts in 8s | 🔴 Critical |
+| 192.168.100.10 blocked | 5 failed attempts in 60s | 🔴 Critical |
+| Successful logins from blocked IPs | 4 incidents | 🔴 Critical |
+| Total alerts raised | 11 | 🔴 Critical |
+
+### Security Notes
+- Successful logins from already-blocked IPs indicate the
+  attacker had valid credentials or block came too late
+- In a real environment this triggers immediate incident
+  response and account lockdown
+- Both IPs continued attempting after being blocked showing
+  behavior typical of automated brute force tools
+
+### How to Run
+```bash
+sudo python3 brute_force_detector.py
+```
