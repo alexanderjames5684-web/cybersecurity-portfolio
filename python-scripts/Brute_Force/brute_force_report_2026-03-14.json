@@ -1,0 +1,98 @@
+{
+    "scan_time": "2026-03-14 18:47:36.941323",
+    "log_file": "/home/aj/sample_auth.log",
+    "configuration": {
+        "alert_threshold": 3,
+        "time_window_seconds": 60,
+        "block_threshold": 5
+    },
+    "summary": {
+        "lines_processed": 25,
+        "failed_logins": 21,
+        "successful_logins": 4,
+        "total_alerts": 11,
+        "blocked_ips": [
+            "192.168.100.10",
+            "192.168.100.20"
+        ]
+    },
+    "alerts": [
+        {
+            "level": "WARNING",
+            "time": "2026-03-08 08:12:05",
+            "ip": "192.168.100.20",
+            "attempts": 3,
+            "message": "Possible brute force from 192.168.100.20 \u2014 3 attempts in 60s"
+        },
+        {
+            "level": "WARNING",
+            "time": "2026-03-08 08:12:07",
+            "ip": "192.168.100.20",
+            "attempts": 4,
+            "message": "Possible brute force from 192.168.100.20 \u2014 4 attempts in 60s"
+        },
+        {
+            "level": "CRITICAL",
+            "time": "2026-03-08 08:12:09",
+            "ip": "192.168.100.20",
+            "attempts": 5,
+            "message": "IP 192.168.100.20 BLOCKED \u2014 exceeded 5 attempts in 60s"
+        },
+        {
+            "level": "CRITICAL",
+            "time": "2026-03-08 08:13:01",
+            "ip": "192.168.100.20",
+            "user": "john",
+            "message": "CRITICAL \u2014 Successful login from BLOCKED IP 192.168.100.20 as 'john'"
+        },
+        {
+            "level": "WARNING",
+            "time": "2026-03-08 08:15:26",
+            "ip": "192.168.100.10",
+            "attempts": 3,
+            "message": "Possible brute force from 192.168.100.10 \u2014 3 attempts in 60s"
+        },
+        {
+            "level": "CRITICAL",
+            "time": "2026-03-08 08:17:45",
+            "ip": "192.168.100.20",
+            "user": "sarah",
+            "message": "CRITICAL \u2014 Successful login from BLOCKED IP 192.168.100.20 as 'sarah'"
+        },
+        {
+            "level": "CRITICAL",
+            "time": "2026-03-08 08:21:10",
+            "ip": "192.168.100.20",
+            "user": "admin",
+            "message": "CRITICAL \u2014 Successful login from BLOCKED IP 192.168.100.20 as 'admin'"
+        },
+        {
+            "level": "WARNING",
+            "time": "2026-03-08 08:22:37",
+            "ip": "192.168.100.10",
+            "attempts": 3,
+            "message": "Possible brute force from 192.168.100.10 \u2014 3 attempts in 60s"
+        },
+        {
+            "level": "WARNING",
+            "time": "2026-03-08 08:22:39",
+            "ip": "192.168.100.10",
+            "attempts": 4,
+            "message": "Possible brute force from 192.168.100.10 \u2014 4 attempts in 60s"
+        },
+        {
+            "level": "CRITICAL",
+            "time": "2026-03-08 08:22:41",
+            "ip": "192.168.100.10",
+            "attempts": 5,
+            "message": "IP 192.168.100.10 BLOCKED \u2014 exceeded 5 attempts in 60s"
+        },
+        {
+            "level": "CRITICAL",
+            "time": "2026-03-08 08:25:00",
+            "ip": "192.168.100.20",
+            "user": "mike",
+            "message": "CRITICAL \u2014 Successful login from BLOCKED IP 192.168.100.20 as 'mike'"
+        }
+    ]
+}
