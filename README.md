@@ -36,7 +36,7 @@ analysis safely without risk to my real network.
 ## Status
 ✅ Phase 1 — VM setup complete
 ✅ Phase 2 — Isolated network configured
-🔄 Phase 3 — Security tools and monitoring (in progress)
+✅ Phase 3 — Security tools and monitoring
 
 
 # 3/7/26 (Nmap Scan & Firewall Discovery)
